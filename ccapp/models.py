@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
     
 class Usuario(models.Model):
@@ -34,8 +34,8 @@ class Tecnico(models.Model):
     nroTecnico = models.AutoField(primary_key=True)
     nroCJPPU = models.CharField(max_length=12) 
     especialidades = models.ManyToManyField(Especialidad)
-    usuario = models.ForeignKey(Usuario , on_delete = models.CASCADE)
-    Persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE)
+    persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
      
 class Paciente(models.Model):
@@ -44,17 +44,17 @@ class Paciente(models.Model):
     fechaVencimientoAYEX = models.DateField()
     esBPS = models.CharField(max_length=1) 
     deuda = models.IntegerField()
-    Persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Funcionario(models.Model):
     nroFuncionario = models.IntegerField()
-    usuario = models.ForeignKey(Usuario , on_delete = models.CASCADE)
-    Persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE)
+    persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
 class TutorPaciente(models.Model):
-    Persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
     pacientes = models.ManyToManyField(Paciente)
     created_at = models.DateTimeField(auto_now_add=True)   
 
