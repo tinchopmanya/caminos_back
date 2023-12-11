@@ -4,7 +4,6 @@ from .models import Persona
 from .models import Especialidad
 from .models import Tecnico
 from .models import Paciente
-from .models import Usuario
 from .models import TutorPaciente
 from .models import Funcionario
 
@@ -17,14 +16,7 @@ class  EspecialidadSerializer(serializers.ModelSerializer):
         
 
 
-class  UsuarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuario
-        fields = ('usuario','password')
-        read_only_fields = ('created_at',) 
-       
-       
-       
+    
        
        
 class  PersonaSerializer(serializers.ModelSerializer):
@@ -37,26 +29,26 @@ class  PersonaSerializer(serializers.ModelSerializer):
 class  TecnicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tecnico
-        fields = ('nroTecnico','nroCJPPU','especialidades','usuario','Persona')
+        fields = ('nroTecnico','nroCJPPU','especialidades','usuario','persona')
         read_only_fields = ('created_at',)
         
 class  PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
-        fields = ('idPaciente','fechaVencimientoAYEX','esBPS','deuda','Persona')
+        fields = ('idPaciente','fechaVencimientoAYEX','esBPS','deuda','persona')
         read_only_fields = ('created_at',)
         
 class  TutorPacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = TutorPaciente
-        fields = ('Persona','pacientes')
+        fields = ('persona','pacientes')
         read_only_fields = ('created_at',)
         
         
 class  FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
-        fields = ('nroFuncionario','usuario','Persona')
+        fields = ('nroFuncionario','usuario','persona')
         read_only_fields = ('created_at',)
         
         

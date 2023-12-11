@@ -1,5 +1,4 @@
 from .models import Especialidad
-from .models import Usuario
 from .models import Persona
 from .models import Tecnico
 from .models import Paciente
@@ -9,7 +8,6 @@ from .models import TutorPaciente
 from rest_framework import viewsets, permissions
 
 from .serializers import EspecialidadSerializer
-from .serializers import UsuarioSerializer
 from .serializers import PersonaSerializer
 from .serializers import TecnicoSerializer
 from .serializers import PacienteSerializer
@@ -21,10 +19,6 @@ class EspecialidadViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = EspecialidadSerializer
     
-class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset =  Usuario.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = UsuarioSerializer
     
 class PersonaViewSet(viewsets.ModelViewSet):
     queryset =  Persona.objects.all()

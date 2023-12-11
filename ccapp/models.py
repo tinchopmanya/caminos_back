@@ -2,10 +2,6 @@ from django.db import models
 from django.conf import settings
 # Create your models here.
     
-class Usuario(models.Model):
-    usuario = models.CharField(max_length=10)
-    password = models.CharField(max_length=160)  
-    created_at = models.DateTimeField(auto_now_add=True)  
     
 class Especialidad(models.Model):
     idEspecialidad = models.AutoField(primary_key=True)
