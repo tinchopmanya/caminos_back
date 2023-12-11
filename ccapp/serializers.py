@@ -12,7 +12,7 @@ from .models import Funcionario
 class  EspecialidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especialidad
-        fields = ('idEspecialidad','nombreEspecialidad','fechacreado')
+        fields = ('idEspecialidad','nombreEspecialidad')
         read_only_fields = ('created_at',)   
         
 
