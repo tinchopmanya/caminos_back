@@ -6,6 +6,27 @@ from .api import PacienteViewSet
 from .api import FuncionarioViewSet
 from .api import TutorPacienteViewSet
 
+from .api import SesionViewSet
+from .api import ConsultaViewSet
+from .api import RegistroConsultaViewSet
+from .api import TratamientoViewSet
+from .api import EvaluacionViewSet
+from .api import PagoViewSet
+from .api import PrestadorViewSet
+
+
+from django.urls import path
+from .views import UserDetailAPI,RegisterUserAPIView
+
+
+
+urlpatterns = [
+  path("get-details",UserDetailAPI.as_view()),
+  path('register',RegisterUserAPIView.as_view()),
+]
+
+
+
 router = routers.DefaultRouter()
 
 router.register('api/Especialidad', EspecialidadViewSet , basename= 'Especialidad')
@@ -14,8 +35,19 @@ router.register('api/Tecnico', TecnicoViewSet , basename= 'Tecnico')
 router.register('api/Paciente', PacienteViewSet , basename= 'Paciente')
 router.register('api/Funcionario', FuncionarioViewSet , basename= 'Funcionario')
 router.register('api/TutorPaciente', TutorPacienteViewSet , basename= 'TutorPaciente')
+router.register('api/Prestador', PrestadorViewSet , basename= 'Prestador')
+router.register('api/Pago', PagoViewSet , basename= 'Pago')
+router.register('api/Sesion', SesionViewSet , basename= 'Sesion')
+router.register('api/Tratamiento', TratamientoViewSet , basename= 'Tratamiento')
+router.register('api/Evaluacion', EvaluacionViewSet , basename= 'Evaluacion')
+router.register('api/Consulta', ConsultaViewSet , basename= 'Consulta')
+router.register('api/Registro', RegistroConsultaViewSet , basename= 'Registro')
 
 
+
+
+
+        
 
 
 urlpatterns = router.urls

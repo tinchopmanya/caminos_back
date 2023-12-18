@@ -4,6 +4,13 @@ from .models import Tecnico
 from .models import Paciente
 from .models import Funcionario
 from .models import TutorPaciente
+from .models import Pago
+from .models import Sesion
+from .models import Prestador
+from .models import Tratamiento
+from .models import Consulta
+from .models import RegistroConsulta
+from .models import Evaluacion
 
 from rest_framework import viewsets, permissions
 
@@ -13,6 +20,15 @@ from .serializers import TecnicoSerializer
 from .serializers import PacienteSerializer
 from .serializers import FuncionarioSerializer
 from .serializers import TutorPacienteSerializer
+from .serializers import SesionSerializer
+from .serializers import ConsultaSerializer
+from .serializers import RegistroConsultaSerializer
+from .serializers import TratamientoSerializer
+from .serializers import EvaluacionSerializer
+from .serializers import PagoSerializer
+from .serializers import PrestadorSerializer
+
+
 
 class EspecialidadViewSet(viewsets.ModelViewSet):
     queryset =  Especialidad.objects.all()
@@ -44,3 +60,47 @@ class TutorPacienteViewSet(viewsets.ModelViewSet):
     queryset =  TutorPaciente.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = TutorPacienteSerializer
+    
+class PagoViewSet(viewsets.ModelViewSet):
+    queryset =  Pago.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = PagoSerializer
+    
+class PrestadorViewSet(viewsets.ModelViewSet):
+    queryset =  Prestador.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = PrestadorSerializer
+    
+class SesionViewSet(viewsets.ModelViewSet):
+    queryset =  Sesion.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = SesionSerializer  
+    
+class ConsultaViewSet(viewsets.ModelViewSet):
+    queryset =  Consulta.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ConsultaSerializer   
+    
+class RegistroConsultaViewSet(viewsets.ModelViewSet):
+    queryset =  RegistroConsulta.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = RegistroConsultaSerializer  
+
+class TratamientoViewSet(viewsets.ModelViewSet):
+    queryset =  Tratamiento.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = TratamientoSerializer
+  
+class EvaluacionViewSet(viewsets.ModelViewSet):
+    queryset =  Evaluacion.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = EvaluacionSerializer
+
+
+       
+
+
+
+        
+             
+      
