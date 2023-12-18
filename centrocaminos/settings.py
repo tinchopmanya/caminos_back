@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ccapp',
     'rest_framework',
-    'rest_framework.authtoken'
-
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'centrocaminos.urls'
