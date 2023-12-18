@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 
+
+
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 
 
@@ -161,3 +163,44 @@ REST_FRAMEWORK = {
 
      ]
 }
+
+
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Especialidad/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Especialidad/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Persona/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Persona/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Tecnico/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Tecnico/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Paciente/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Paciente/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Funcionario/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Funcionario/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/TutorPaciente/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/TutorPaciente/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Prestador/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Prestador/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Pago/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Pago/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Sesion/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Sesion/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Tratamiento/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Tratamiento/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Evaluacion/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Evaluacion/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Consulta/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Consulta/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Registro/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Registro/")
