@@ -6,7 +6,6 @@ from django.conf import settings
 class Especialidad(models.Model):
     idEspecialidad = models.AutoField(primary_key=True)
     nombreEspecialidad = models.TextField()
-    estadoEspecialidad = models.SmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     #tecnicos = models.ManyToManyField(Tecnico)
     
