@@ -13,7 +13,8 @@ from .api import TratamientoViewSet
 from .api import EvaluacionViewSet
 from .api import PagoViewSet
 from .api import PrestadorViewSet
-
+from django.urls import path
+from .api import UserLogin
 
 from django.urls import path
 from .views import UserDetailAPI,RegisterUserAPIView
@@ -23,11 +24,14 @@ from .views import UserDetailAPI,RegisterUserAPIView
 urlpatterns = [
   path("get-details",UserDetailAPI.as_view()),
   path('register',RegisterUserAPIView.as_view()),
+  path('login/', UserLogin.as_view(), name='user-login'),
 ]
 
 
 
 router = routers.DefaultRouter()
+
+
 
 router.register('api/Especialidad', EspecialidadViewSet , basename= 'Especialidad')
 router.register('api/Persona', PersonaViewSet , basename= 'Persona')

@@ -5,6 +5,9 @@ from rest_framework import status
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
+
 from .models import Persona
 from .models import Especialidad
 from .models import Tecnico
@@ -19,11 +22,26 @@ from .models import Consulta
 from .models import RegistroConsulta
 from .models import Evaluacion
 
+
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+    
+
 #Serializer to Get User Details using Django Token Authentication
+#class UserSerializer(serializers.ModelSerializer):
+#  class Meta:
+#    model = User
+#    fields = ["id", "first_name", "last_name", "username"]
+    
+
+
 class UserSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = User
-    fields = ["id", "first_name", "last_name", "username"]
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "password", "last_name", "username"]
 
 #Serializer to Register User
 class RegisterSerializer(serializers.ModelSerializer):
@@ -63,14 +81,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 class  EspecialidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especialidad
+        paginator = CustomPagination()
         fields = ('idEspecialidad','nombreEspecialidad')
         read_only_fields = ('created_at',)   
-        
 
-
-    
-       
-       
+               
 class  PersonaSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Persona

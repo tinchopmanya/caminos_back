@@ -12,6 +12,11 @@ from .models import Consulta
 from .models import RegistroConsulta
 from .models import Evaluacion
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+
 from rest_framework import viewsets, permissions
 
 from .serializers import EspecialidadSerializer
@@ -27,13 +32,26 @@ from .serializers import TratamientoSerializer
 from .serializers import EvaluacionSerializer
 from .serializers import PagoSerializer
 from .serializers import PrestadorSerializer
+from .serializers import UserSerializer
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate  # Import authenticate function
 
 
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
 
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+    
+    
 class EspecialidadViewSet(viewsets.ModelViewSet):
     queryset =  Especialidad.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = EspecialidadSerializer
+    pagination_class = CustomPagination
     
     
 class PersonaViewSet(viewsets.ModelViewSet):
@@ -95,6 +113,22 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
     queryset =  Evaluacion.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = EvaluacionSerializer
+    
+
+
+class UserLogin(APIView):
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
        
