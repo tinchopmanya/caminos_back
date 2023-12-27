@@ -13,18 +13,23 @@ from .api import TratamientoViewSet
 from .api import EvaluacionViewSet
 from .api import PagoViewSet
 from .api import PrestadorViewSet
+from django.urls import path , re_path
+
+
 from django.urls import path
-from .api import UserLogin
 
-from django.urls import path
-from .views import UserDetailAPI,RegisterUserAPIView
+from .views import signup
+from .views import login
+from .views import test_token
 
+from django.urls import re_path
 
+from . import views
 
 urlpatterns = [
-  path("get-details",UserDetailAPI.as_view()),
-  path('register',RegisterUserAPIView.as_view()),
-  path('login/', UserLogin.as_view(), name='user-login'),
+    re_path('signup', views.signup),
+    re_path('login', views.login),
+    re_path('test_token', views.test_token),
 ]
 
 

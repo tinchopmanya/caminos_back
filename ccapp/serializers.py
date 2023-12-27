@@ -6,7 +6,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.views import APIView
+
 
 from .models import Persona
 from .models import Especialidad
@@ -37,44 +37,15 @@ class CustomPagination(PageNumberPagination):
 #    fields = ["id", "first_name", "last_name", "username"]
     
 
+from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["id", "first_name", "password", "last_name", "username"]
+    class Meta(object):
+        model = User 
+        fields = [ 'username', 'password', 'email']
 
-#Serializer to Register User
-class RegisterSerializer(serializers.ModelSerializer):
-  email = serializers.EmailField(
-    required=True,
-    validators=[UniqueValidator(queryset=User.objects.all())]
-  )
-  password = serializers.CharField(
-    write_only=True, required=True, validators=[validate_password])
-  password2 = serializers.CharField(write_only=True, required=True)
-  class Meta:
-    model = User
-    fields = ('username', 'password', 'password2',
-         'email', 'first_name', 'last_name')
-    extra_kwargs = {
-      'first_name': {'required': True},
-      'last_name': {'required': True}
-    }
-  def validate(self, attrs):
-    if attrs['password'] != attrs['password2']:
-      raise serializers.ValidationError(
-        {"password": "Password fields didn't match."})
-    return attrs
-  def create(self, validated_data):
-    user = User.objects.create(
-      username=validated_data['username'],
-      email=validated_data['email'],
-      first_name=validated_data['first_name'],
-      last_name=validated_data['last_name']
-    )
-    user.set_password(validated_data['password'])
-    user.save()
-    return user
+
+
 
    
 
@@ -128,7 +99,7 @@ class  PrestadorSerializer(serializers.ModelSerializer):
 class  PagoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pago
-        fields = ('idPago','fechaPago','total')
+        fields = ('idPago','fechaPago','total','paciente')
         read_only_fields = ('created_at',)
  
 class  SesionSerializer(serializers.ModelSerializer):
@@ -164,7 +135,7 @@ class  PrestadorSerializer(serializers.ModelSerializer):
 class  ConsultaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consulta
-        fields = ('idConsulta','fecha','hora','idSesion','idEvaluacion','idTratamiento' ,'nroTecnico','idPaciente','asisteAfiliado','asisteTecnico','estado','cantidadConsultas','cantidadConsultasRestantes','observaciones','fechaGeneracion')
+        fields = ('idConsulta','fecha','hora','idSesion','idEvaluacion','idTratamiento' ,'nroTecnico','idPaciente','asisteAfiliado','asisteTecnico','estado','observaciones','fechaGeneracion')
         read_only_fields = ('created_at',)  
       
 class  RegistroConsultaSerializer(serializers.ModelSerializer):

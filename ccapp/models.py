@@ -57,11 +57,15 @@ class Pago(models.Model):
     idPago = models.AutoField(primary_key=True)
     fechaPago = models.DateTimeField()
     total = models.FloatField()
+    paciente = models.ForeignKey(Paciente , on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-     
-class Sesion(models.Model):
+    
+    
+# Las consultas se generar mes a mes     
+class Sesion(models.Model):  
     idSesion = models.AutoField(primary_key=True)
     nroTecnico = models.ForeignKey(Tecnico , on_delete = models.PROTECT)
+    # falta especialidad
     diaSemana = models.IntegerField()
     horaInicio = models.DateTimeField()
     horaFin = models.DateTimeField()
@@ -107,11 +111,9 @@ class Consulta(models.Model):
     idTratamiento = models.ForeignKey(Tratamiento , on_delete = models.PROTECT)
     nroTecnico = models.ForeignKey(Tecnico , on_delete = models.PROTECT)
     idPaciente = models.ForeignKey(Paciente , on_delete = models.PROTECT)
-    asisteAfiliado = models.BooleanField()
+    asisteAfiliado = models.BooleanField() # cambiar paciente
     asisteTecnico = models.BooleanField()
     estado = models.IntegerField()
-    cantidadConsultas = models.IntegerField()
-    cantidadConsultasRestantes = models.IntegerField()
     observaciones = models.CharField(max_length=250)
     fechaGeneracion = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -127,3 +129,5 @@ class RegistroConsulta(models.Model):
     idTratamiento = models.ForeignKey(Tratamiento , on_delete = models.PROTECT)
     observaciones = models.CharField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    

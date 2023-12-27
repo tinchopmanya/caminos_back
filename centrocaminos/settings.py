@@ -34,8 +34,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+LOGIN_REDIRECT_URL  = "home"
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
 
-
+CSRF_TRUSTED_ORIGINS=['http://*.*']
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 
 
@@ -60,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -206,3 +211,6 @@ CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Consulta/")
 
 CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Registro/")
 CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Registro/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/signup/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/signup/")

@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
+from ccapp import views
+from django.urls import re_path
 
 urlpatterns = [
-  path('admin/', admin.site.urls),
   path('',include('ccapp.urls')),
-  path('api-token-auth', views.obtain_auth_token)
+  re_path('signup', views.signup),
+  re_path('login', views.login),
+   re_path('test_token', views.test_token)
 ]
+
 
 
