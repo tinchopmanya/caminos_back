@@ -8,6 +8,11 @@ class Especialidad(models.Model):
     nombreEspecialidad = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     #tecnicos = models.ManyToManyField(Tecnico)
+
+class InstitucionEducativa(models.Model):
+    idInstitucionEducativa = models.AutoField(primary_key=True)
+    nombreInstitucionEducativa = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
     
 class Persona(models.Model):
     cedula = models.CharField(max_length=20 ,primary_key=True)
@@ -35,6 +40,7 @@ class Tecnico(models.Model):
      
 class Paciente(models.Model):
     idPaciente = models.AutoField(primary_key=True)
+    idInstitucionEducativa = models.ForeignKey(InstitucionEducativa , on_delete = models.PROTECT)
     nroCJPPU = models.CharField(max_length=12) 
     fechaVencimientoAYEX = models.DateField()
     esBPS = models.CharField(max_length=1) 
@@ -65,7 +71,7 @@ class Pago(models.Model):
 class Sesion(models.Model):  
     idSesion = models.AutoField(primary_key=True)
     nroTecnico = models.ForeignKey(Tecnico , on_delete = models.PROTECT)
-    # falta especialidad
+    idEspecialidad = models.ForeignKey(Especialidad , on_delete = models.PROTECT)
     diaSemana = models.IntegerField()
     horaInicio = models.DateTimeField()
     horaFin = models.DateTimeField()
@@ -129,5 +135,7 @@ class RegistroConsulta(models.Model):
     idTratamiento = models.ForeignKey(Tratamiento , on_delete = models.PROTECT)
     observaciones = models.CharField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+
     
     

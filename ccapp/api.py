@@ -11,6 +11,7 @@ from .models import Tratamiento
 from .models import Consulta
 from .models import RegistroConsulta
 from .models import Evaluacion
+from .models import InstitucionEducativa
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -32,6 +33,7 @@ from .serializers import TratamientoSerializer
 from .serializers import EvaluacionSerializer
 from .serializers import PagoSerializer
 from .serializers import PrestadorSerializer
+from .serializers import InstitucionEducativaSerializer
 from .serializers import UserSerializer
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -51,64 +53,81 @@ class EspecialidadViewSet(viewsets.ModelViewSet):
     queryset =  Especialidad.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = EspecialidadSerializer
-    pagination_class = CustomPagination
+    #pagination_class = CustomPagination
     
+      
+class InstitucionEducativaViewSet(viewsets.ModelViewSet):
+    queryset =  InstitucionEducativa.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = InstitucionEducativaSerializer
+    #pagination_class = CustomPagination
     
 class PersonaViewSet(viewsets.ModelViewSet):
     queryset =  Persona.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = PersonaSerializer
+    #pagination_class = CustomPagination   
     
 class TecnicoViewSet(viewsets.ModelViewSet):
     queryset =  Tecnico.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = TecnicoSerializer
+    #pagination_class = CustomPagination   
     
 class PacienteViewSet(viewsets.ModelViewSet):
     queryset =  Paciente.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = PacienteSerializer
+    #pagination_class = CustomPagination   
     
 class FuncionarioViewSet(viewsets.ModelViewSet):
     queryset =  Funcionario.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = FuncionarioSerializer
+    #pagination_class = CustomPagination   
     
 class TutorPacienteViewSet(viewsets.ModelViewSet):
     queryset =  TutorPaciente.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = TutorPacienteSerializer
+    #pagination_class = CustomPagination   
     
 class PagoViewSet(viewsets.ModelViewSet):
     queryset =  Pago.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = PagoSerializer
+    #pagination_class = CustomPagination   
     
 class PrestadorViewSet(viewsets.ModelViewSet):
     queryset =  Prestador.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = PrestadorSerializer
+    #pagination_class = CustomPagination   
     
 class SesionViewSet(viewsets.ModelViewSet):
     queryset =  Sesion.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = SesionSerializer  
+    #pagination_class = CustomPagination   
     
 class ConsultaViewSet(viewsets.ModelViewSet):
     queryset =  Consulta.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = ConsultaSerializer   
+    #pagination_class = CustomPagination   
     
 class RegistroConsultaViewSet(viewsets.ModelViewSet):
     queryset =  RegistroConsulta.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = RegistroConsultaSerializer  
-
+    #pagination_class = CustomPagination   
+    
 class TratamientoViewSet(viewsets.ModelViewSet):
     queryset =  Tratamiento.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = TratamientoSerializer
-  
+    #pagination_class = CustomPagination 
+      
 class EvaluacionViewSet(viewsets.ModelViewSet):
     queryset =  Evaluacion.objects.all()
     permission_classes = [permissions.AllowAny]

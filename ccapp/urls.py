@@ -5,6 +5,7 @@ from .api import TecnicoViewSet
 from .api import PacienteViewSet
 from .api import FuncionarioViewSet
 from .api import TutorPacienteViewSet
+from .api import InstitucionEducativaViewSet
 
 from .api import SesionViewSet
 from .api import ConsultaViewSet
@@ -13,6 +14,7 @@ from .api import TratamientoViewSet
 from .api import EvaluacionViewSet
 from .api import PagoViewSet
 from .api import PrestadorViewSet
+from .api import InstitucionEducativa
 from django.urls import path , re_path
 
 
@@ -39,6 +41,7 @@ router = routers.DefaultRouter()
 
 
 router.register('api/Especialidad', EspecialidadViewSet , basename= 'Especialidad')
+router.register('api/InstitucionEducativa', InstitucionEducativaViewSet , basename= 'InstitucionEducativa')
 router.register('api/Persona', PersonaViewSet , basename= 'Persona')
 router.register('api/Tecnico', TecnicoViewSet , basename= 'Tecnico')
 router.register('api/Paciente', PacienteViewSet , basename= 'Paciente')

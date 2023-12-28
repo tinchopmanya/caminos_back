@@ -21,7 +21,7 @@ from .models import Tratamiento
 from .models import Consulta
 from .models import RegistroConsulta
 from .models import Evaluacion
-
+from .models import InstitucionEducativa
 
 
 class CustomPagination(PageNumberPagination):
@@ -45,9 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [ 'username', 'password', 'email']
 
 
-
-
-   
+ 
 
 class  EspecialidadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,6 +53,15 @@ class  EspecialidadSerializer(serializers.ModelSerializer):
         paginator = CustomPagination()
         fields = ('idEspecialidad','nombreEspecialidad')
         read_only_fields = ('created_at',)   
+ 
+ 
+class  InstitucionEducativaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstitucionEducativa
+        paginator = CustomPagination()
+        fields = ('idInstitucionEducativa','nombreInstitucionEducativa')
+        read_only_fields = ('created_at',) 
+               
 
                
 class  PersonaSerializer(serializers.ModelSerializer):
@@ -105,11 +112,8 @@ class  PagoSerializer(serializers.ModelSerializer):
 class  SesionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sesion
-        fields = ('idSesion','nroTecnico','diaSemana','horaInicio','horaFin','cantidadPacientes','agrupacion','unicavez')
-        read_only_fields = ('created_at',) 
-
-
-        
+        fields = ('idSesion','nroTecnico', 'idEspecialidad' , 'diaSemana','horaInicio','horaFin','cantidadPacientes','agrupacion','unicavez')
+        read_only_fields = ('created_at',)         
 
       
 class  TratamientoSerializer(serializers.ModelSerializer):
