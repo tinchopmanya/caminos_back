@@ -6,12 +6,16 @@ from django.conf import settings
 class Especialidad(models.Model):
     idEspecialidad = models.AutoField(primary_key=True)
     nombreEspecialidad = models.TextField()
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     #tecnicos = models.ManyToManyField(Tecnico)
 
 class InstitucionEducativa(models.Model):
     idInstitucionEducativa = models.AutoField(primary_key=True)
     nombreInstitucionEducativa = models.CharField(max_length=50)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Persona(models.Model):
@@ -28,14 +32,18 @@ class Persona(models.Model):
     localidad = models.CharField(max_length=50)    
     fechaNacimiento = models.DateField()
     imagen = models.CharField(max_length=100, default='', null=True, blank=True)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Tecnico(models.Model):
     nroTecnico = models.AutoField(primary_key=True)
     nroCJPPU = models.CharField(max_length=12) 
     especialidades = models.ManyToManyField(Especialidad)
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE , related_name='usuario') 
     persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT, related_name='author') 
     created_at = models.DateTimeField(auto_now_add=True)
      
 class Paciente(models.Model):
@@ -46,12 +54,16 @@ class Paciente(models.Model):
     esBPS = models.CharField(max_length=1) 
     deuda = models.IntegerField()
     persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Funcionario(models.Model):
     nroFuncionario = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete = models.CASCADE , related_name='FuncionarioUsuario') 
     persona = models.ForeignKey(Persona , on_delete = models.CASCADE)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT, related_name='FuncionarioAuthor') 
     created_at = models.DateTimeField(auto_now_add=True)
     
 class TutorPaciente(models.Model):
@@ -64,6 +76,8 @@ class Pago(models.Model):
     fechaPago = models.DateTimeField()
     total = models.FloatField()
     paciente = models.ForeignKey(Paciente , on_delete = models.CASCADE)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
     
     
@@ -78,11 +92,15 @@ class Sesion(models.Model):
     cantidadPacientes = models.IntegerField()
     agrupacion = models.IntegerField()
     unicavez = models.BooleanField()
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Prestador(models.Model):
     idPrestador = models.AutoField(primary_key=True)
     nombrePrestador = models.CharField(max_length=50)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
     
 class Tratamiento(models.Model):
@@ -91,6 +109,8 @@ class Tratamiento(models.Model):
     idPrestador = models.ForeignKey(Prestador , on_delete = models.PROTECT)
     idSesion = models.ForeignKey(Sesion , on_delete = models.PROTECT)
     observaciones = models.CharField(max_length=250)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Evaluacion(models.Model):
@@ -106,6 +126,8 @@ class Evaluacion(models.Model):
     cantidadConsultas = models.IntegerField()
     cantidadConsultasRestantes = models.IntegerField()
     observaciones = models.CharField(max_length=250)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Consulta(models.Model):
@@ -122,6 +144,8 @@ class Consulta(models.Model):
     estado = models.IntegerField()
     observaciones = models.CharField(max_length=250)
     fechaGeneracion = models.DateTimeField()
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
     
 class RegistroConsulta(models.Model):
@@ -134,6 +158,8 @@ class RegistroConsulta(models.Model):
     idEvaluacion =models.ForeignKey(Evaluacion , on_delete = models.PROTECT)
     idTratamiento = models.ForeignKey(Tratamiento , on_delete = models.PROTECT)
     observaciones = models.CharField(max_length=250)
+    activo = models.BooleanField()
+    author =  models.ForeignKey(settings.AUTH_USER_MODEL , null=True , on_delete = models.PROTECT) 
     created_at = models.DateTimeField(auto_now_add=True)
     
 

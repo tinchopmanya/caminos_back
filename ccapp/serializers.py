@@ -38,11 +38,22 @@ class CustomPagination(PageNumberPagination):
     
 
 from django.contrib.auth.models import User
+from rest_framework import serializers
+from django.contrib.auth.models import Group
 
+
+    
+    
 class UserSerializer(serializers.ModelSerializer):
+    group = serializers.SerializerMethodField()
+      
     class Meta(object):
         model = User 
-        fields = [ 'username', 'password', 'email']
+        fields = [ 'username', 'password', 'email', 'group']
+
+    def get_group(self, obj):
+        group = Group.objects.filter(user=obj).first()
+        return group.name if group else None
 
 
  
@@ -51,7 +62,10 @@ class  EspecialidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especialidad
         paginator = CustomPagination()
-        fields = ('idEspecialidad','nombreEspecialidad')
+        fields = ('idEspecialidad','nombreEspecialidad','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)   
  
  
@@ -59,7 +73,10 @@ class  InstitucionEducativaSerializer(serializers.ModelSerializer):
     class Meta:
         model = InstitucionEducativa
         paginator = CustomPagination()
-        fields = ('idInstitucionEducativa','nombreInstitucionEducativa')
+        fields = ('idInstitucionEducativa','nombreInstitucionEducativa','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',) 
                
 
@@ -67,65 +84,95 @@ class  InstitucionEducativaSerializer(serializers.ModelSerializer):
 class  PersonaSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Persona
-        fields = ('cedula','digito','primernombre','primerapellido','segundonombre','segundoapellido','email','celular','direccion','ciudad','localidad','fechaNacimiento','imagen')
+        fields = ('cedula','digito','primernombre','primerapellido','segundonombre','segundoapellido','email','celular','direccion','ciudad','localidad','fechaNacimiento','imagen','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
         
         
 class  TecnicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tecnico
-        fields = ('nroTecnico','nroCJPPU','especialidades','usuario','persona')
+        fields = ('nroTecnico','nroCJPPU','especialidades','usuario','persona','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
         
 class  PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
-        fields = ('idPaciente','fechaVencimientoAYEX','esBPS','deuda','persona')
+        fields = ('idPaciente','fechaVencimientoAYEX','esBPS','deuda','persona','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
         
 class  TutorPacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = TutorPaciente
-        fields = ('persona','pacientes')
+        fields = ('persona','pacientes','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
         
         
 class  FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
-        fields = ('nroFuncionario','usuario','persona')
+        fields = ('nroFuncionario','usuario','persona','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
         
         
 class  PrestadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prestador
-        fields = ('idPrestador','nombrePrestador')
+        fields = ('idPrestador','nombrePrestador','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)       
         
 class  PagoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pago
-        fields = ('idPago','fechaPago','total','paciente')
+        fields = ('idPago','fechaPago','total','paciente','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)
  
 class  SesionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sesion
-        fields = ('idSesion','nroTecnico', 'idEspecialidad' , 'diaSemana','horaInicio','horaFin','cantidadPacientes','agrupacion','unicavez')
+        fields = ('idSesion','nroTecnico', 'idEspecialidad' , 'diaSemana','horaInicio','horaFin','cantidadPacientes','agrupacion','unicavez','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)         
 
       
 class  TratamientoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tratamiento
-        fields = ('idTratamiento','idPaciente','idPrestador','idSesion','observaciones')
+        fields = ('idTratamiento','idPaciente','idPrestador','idSesion','observaciones','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)  
         
 class  EvaluacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evaluacion
-        fields = ('idEvaluacion','fechaInicio','horaFin','idPaciente','idSesion','diaSemana','idPrestador','horaConsulta','estado','cantidadConsultas','cantidadConsultasRestantes','observaciones')
+        fields = ('idEvaluacion','fechaInicio','horaFin','idPaciente','idSesion','diaSemana','idPrestador','horaConsulta','estado','cantidadConsultas','cantidadConsultasRestantes','observaciones','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)  
  
     
@@ -133,19 +180,28 @@ class  EvaluacionSerializer(serializers.ModelSerializer):
 class  PrestadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tratamiento
-        fields = ('idTratamiento','idPaciente','idPrestador','idSesion','observaciones')
+        fields = ('idTratamiento','idPaciente','idPrestador','idSesion','observaciones','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)  
         
 class  ConsultaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consulta
-        fields = ('idConsulta','fecha','hora','idSesion','idEvaluacion','idTratamiento' ,'nroTecnico','idPaciente','asisteAfiliado','asisteTecnico','estado','observaciones','fechaGeneracion')
+        fields = ('idConsulta','fecha','hora','idSesion','idEvaluacion','idTratamiento' ,'nroTecnico','idPaciente','asisteAfiliado','asisteTecnico','estado','observaciones','fechaGeneracion','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)  
       
 class  RegistroConsultaSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroConsulta
-        fields = ('idRegistroConsulta','idConsulta','fecha','hora','nroTecnico','nroTecnico','idPaciente','idEvaluacion','idTratamiento','observaciones')
+        fields = ('idRegistroConsulta','idConsulta','fecha','hora','nroTecnico','nroTecnico','idPaciente','idEvaluacion','idTratamiento','observaciones','activo')
+        extra_kwargs = {
+            "author": {"required": False, "allow_null": True}
+        }
         read_only_fields = ('created_at',)  
         
         

@@ -15,7 +15,7 @@ from .api import EvaluacionViewSet
 from .api import PagoViewSet
 from .api import PrestadorViewSet
 from .api import InstitucionEducativa
-from django.urls import path , re_path
+from django.urls import path , re_path, include
 
 
 from django.urls import path
@@ -34,7 +34,10 @@ urlpatterns = [
     re_path('test_token', views.test_token),
 ]
 
-
+urlpatterns = [
+    # ...
+    path("__debug__/", include("debug_toolbar.urls")),
+]
 
 router = routers.DefaultRouter()
 

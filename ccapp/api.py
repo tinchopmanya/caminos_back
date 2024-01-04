@@ -38,6 +38,9 @@ from .serializers import UserSerializer
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate  # Import authenticate function
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 from rest_framework.generics import ListAPIView
@@ -51,9 +54,38 @@ class CustomPagination(PageNumberPagination):
     
 class EspecialidadViewSet(viewsets.ModelViewSet):
     queryset =  Especialidad.objects.all()
-    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.AllowAny]
+    permission_classes = (IsAuthenticated,)
     serializer_class = EspecialidadSerializer
-    #pagination_class = CustomPagination
+
+    def perform_create(self, serializer):
+        print("hola" )
+        print( self.request.user.is_authenticated)
+        self.request.data.get("title", None)  # read data from request
+        if self.request.user.is_authenticated:
+            instance = serializer.save(author=self.request.user)
+        else:
+            instance = serializer.save()  
+            
+    def get(self, request, format=None):
+        print("dejamos ver" )
+        content = {
+            'status': 'request was permitted'
+        }
+        return Response(content)
+    
+    def list(self, request):
+        print("dejamos ver lista" )
+        queryset = Especialidad.objects.all()        
+        serializer = EspecialidadSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+   # def retrieve(self, request, pk=None):
+        queryset = Especialidad.objects.all()
+        #user = get_object_or_404(queryset, pk=pk)
+        #serializer = UserSerializer(user)
+     #   return Response(serializer.data
+
     
       
 class InstitucionEducativaViewSet(viewsets.ModelViewSet):
@@ -133,6 +165,7 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = EvaluacionSerializer
     
+
 
 
 

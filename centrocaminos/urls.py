@@ -22,10 +22,11 @@ from django.urls import re_path
 
 urlpatterns = [
   path('',include('ccapp.urls')),
+  path('admin/', admin.site.urls),
   re_path('signup', views.signup),
   re_path('login', views.login),
-   re_path('test_token', views.test_token)
+  re_path('test_token', views.test_token),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
-
 
 

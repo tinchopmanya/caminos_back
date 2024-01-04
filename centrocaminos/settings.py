@@ -59,9 +59,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'debug_toolbar',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [   
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,6 +72,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'centrocaminos.urls'
@@ -171,7 +174,11 @@ REST_FRAMEWORK = {
      ]
 }
 
-
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
 
 CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/api/Especialidad/")
 CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Especialidad/")
