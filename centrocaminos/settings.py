@@ -221,3 +221,6 @@ CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/api/Registro/")
 
 CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/signup/")
 CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/signup/")
+
+CSP_DEFAULT_SRC = ("'self'", "http://127.0.0.1:8000/admin/")
+CSP_DEFAULT_SRC = ("'self'", "https://centrocaminos.onrender.com/admin/")
