@@ -34,10 +34,7 @@ urlpatterns = [
     re_path('test_token', views.test_token),
 ]
 
-urlpatterns = [
-    # ...
-    path("__debug__/", include("debug_toolbar.urls")),
-]
+
 
 router = routers.DefaultRouter()
 
