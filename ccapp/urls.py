@@ -27,6 +27,9 @@ from .views import test_token
 from django.urls import re_path
 
 from . import views
+import debug_toolbar
+
+
 
 urlpatterns = [
     re_path('signup', views.signup),
@@ -37,6 +40,7 @@ urlpatterns = [
 
 
 router = routers.DefaultRouter()
+
 
 
 

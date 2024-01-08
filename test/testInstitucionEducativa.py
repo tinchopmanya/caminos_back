@@ -8,26 +8,27 @@ class TestEndpoints(unittest.TestCase):
 
     def test_authenticated_request(self):
         headers = {'Authorization': f'Token {self.token}'}
-        response = requests.get(self.base_url + 'Especialidad/', headers=headers)
+        response = requests.get(self.base_url + 'InstitucionEducativa/', headers=headers)
         
         self.assertEqual(response.status_code, 200)  # Adjust as per your expectations     
         
-        
-        data = {'nombreEspecialidad': 'Fonoaudiologa', 'activo': True}  # Datos a enviar en la solicitud POST        
-        response = requests.post(self.base_url + 'Especialidad/', headers=headers, json=data)        
+
+        read_only_fields = ('created_at',) 
+        data = {'nombreInstitucionEducativa': 'Escuela 14', 'activo': True}  # Datos a enviar en la solicitud POST        
+        response = requests.post(self.base_url + 'InstitucionEducativa/', headers=headers, json=data)        
         self.assertEqual(response.status_code, 201)  # Ajusta según el código esperado (201: Created)
 
  
-        data = {'nombreEspecialidad': 'Maestra', 'activo': True}  # Datos a enviar en la solicitud POST        
-        response = requests.post(self.base_url + 'Especialidad/', headers=headers, json=data)        
+        data = {'nombreInstitucionEducativa': 'Escuela 15', 'activo': True}  # Datos a enviar en la solicitud POST        
+        response = requests.post(self.base_url + 'InstitucionEducativa/', headers=headers, json=data)        
         self.assertEqual(response.status_code, 201)  # Ajusta según el código esperado (201: Created)
 
-        data = {'nombreEspecialidad': 'Psicomotricista', 'activo': True}  # Datos a enviar en la solicitud POST        
-        response = requests.post(self.base_url + 'Especialidad/', headers=headers, json=data)        
+        data = {'nombreInstitucionEducativa': 'Escuela 16', 'activo': True}  # Datos a enviar en la solicitud POST        
+        response = requests.post(self.base_url + 'InstitucionEducativa/', headers=headers, json=data)        
         self.assertEqual(response.status_code, 201)  # Ajusta según el código esperado (201: Created)
 
-        data = {'nombreEspecialidad': 'Fonoaudiologa', 'activo': True}  # Datos a enviar en la solicitud POST        
-        response = requests.post(self.base_url + 'Especialidad/', headers=headers, json=data)        
+        data = {'nombreInstitucionEducativa': 'Escuela 17', 'activo': True}  # Datos a enviar en la solicitud POST        
+        response = requests.post(self.base_url + 'InstitucionEducativa/', headers=headers, json=data)        
         self.assertEqual(response.status_code, 201)  # Ajusta según el código esperado (201: Created)
 
 

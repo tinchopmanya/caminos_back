@@ -20,6 +20,8 @@ from rest_framework.authtoken import views
 from ccapp import views
 from django.urls import re_path
 
+
+
 urlpatterns = [
   path('',include('ccapp.urls')),
   path('admin/', admin.site.urls),
